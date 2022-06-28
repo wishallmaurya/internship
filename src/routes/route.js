@@ -3,8 +3,8 @@ const router = express.Router();
 
 
 //....................Controllers
-const collegeController= require("../controllers/collegeController")
-const internController= require("../controllers/interncontroller")
+const collegeController= require("../controller/collegeController")
+const internController= require("../controller/interncontroller")
 
 
 
@@ -12,11 +12,11 @@ const internController= require("../controllers/interncontroller")
 router.post("/functionup/colleges", collegeController.createCollege)
 
 //....................Create  /functionup/interns
-router.post("/functionup/interns", internController.createIntern)
+// router.post("/functionup/interns", internController.createIntern)
 
 //...................Get List Of functionup/colleges
- router.get("/functionup/collegeDetails", internController.getAllInterns)
+//  router.get("/functionup/collegeDetails", internController.getAllInterns)
 
-
+// 
 
 module.exports = router;
