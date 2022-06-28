@@ -20,3 +20,5 @@ router.post("/functionup/colleges", collegeController.createCollege)
 // 
 
 module.exports = router;
+
+// checking my account
