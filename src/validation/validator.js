@@ -6,6 +6,10 @@ const isValidName=(name)=>{
     if(/^[a-z ,.'-]+$/i.test(name))
     return true
 }
+const isValidFullName=(fname)=>{
+    if(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/i.test(fname))
+    return true
+}
 const isValid=(value)=>{
     if(typeof value==="undefined" || value=== null ) return false
     if(typeof value==="string" && value.trim().length===0) return false
@@ -28,6 +32,6 @@ const isValidBody=(body)=>{
 
 
 
-module.exports={isValidEmail,isValidName,isValid,isValidPassword,isValidTitle,isValidBody}
+module.exports={isValidEmail,isValidName,isValidFullName,isValid,isValidPassword,isValidTitle,isValidBody}
 
 // Hello
