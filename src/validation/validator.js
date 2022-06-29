@@ -3,13 +3,14 @@ const isValid = (value) => {
     if (typeof value === "string" && value.trim().length === 0) return false
     return true
 }
-const isValidName = (name) => {
-    if (/^[a-z ,.'-]+$/i.test(name))
-        return true
-}
+
 const isValidFullName=(fname)=>{
     if(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/i.test(fname))
     return true
+}
+const isValidlogoLink = (logoLink) => {
+    if (/^(https:\/\/www\.|http:\/\/www\.|www\.)[a-zA-Z0-9\-_.$]+\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?(.png|.jpeg|.jpg)$/.test(logoLink))
+        return true
 }
 const isValidEmail = (mail) => {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
@@ -29,11 +30,7 @@ const isValidCollegeId = (collegeId) => {
         return true
 }
 
+module.exports={isValidEmail,isValidFullName,isValidlogoLink,isValid,isValidPassword,isValidCollegeId,isValidMobile}
 
 
-
-
-module.exports={isValidEmail,isValidName,isValidFullName,isValid,isValidPassword,isValidCollegeId,isValidMobile}
-
-
-// Hello
+// Done

@@ -5,7 +5,7 @@ const mongoose = require("mongoose") //Importing mongoose
 const { isValidEmail, isValidName, isValid, isValidMobile } = require("../validation/validator"); //Importing Validations
 
 
-// Creation of College via POST /functionup/colleges
+// Creation of College via POST /functionup/interns
 
 const createIntern = async function (req, res) {
     try {
@@ -79,20 +79,24 @@ const createIntern = async function (req, res) {
 const getCollegeInternDetails = async function (req, res) {
     try {
         let data = req.query.name
-         //Checking Validation of empty query
-        if (!data) 
-        return res.status(400).send({ status: false, message: "Please provide data in query" })
+        //Checking Validation of empty query
+        if (!data)
+            return res.status(400).send({ status: false, message: "Please provide data in query" })
 
+        data.toLowerCase() 
+        data=data.split(" ").join("")
+        
+        
         const college = await collegeModel.findOne({ name: data })
 
-         //Checking Validation of College Presence
+        //Checking Validation of College Presence
         if (!college) {
             return res.status(400).send({ status: false, message: "College is not found" })
         }
         const interns = await InternModel.find({ collegeId: college._id }).select({ name: 1, email: 1, mobile: 1 })
 
         // Handling error of No data presence in interns of requested college
-        if (interns.length==0) {
+        if (interns.length == 0) {
             return res.status(400).send({ status: false, message: "No interns are found in the given college" })
         }
         res.status(200).send({ status: false, "data": { "name": college.name, "fullName": college.fullName, "logoLink": college.logoLink, "interns": interns } })
@@ -106,3 +110,5 @@ const getCollegeInternDetails = async function (req, res) {
 
 module.exports.createIntern = createIntern
 module.exports.getCollegeInternDetails = getCollegeInternDetails
+
+//Done
