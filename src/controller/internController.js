@@ -1,12 +1,16 @@
-
 const InternModel = require("../model/internModel");
 const collegeModel = require("../model/collegeModel");
+const mongoose = require("mongoose")
+const {isValidEmail,isValidName,isValid,isValidMobile,isValidCollegeId} = require("../validation/validator");
+
+
+
 const createIntern = async function (req,res){
 
 
     try {
         let data = req.body
-
+      let collegeId= data.collegeId
         if (Object.keys(data).length == 0) {
             return res.status(400).send({ status: false, msg: "Body should not be empty" })
         }
@@ -42,8 +46,10 @@ const createIntern = async function (req,res){
         let checkunique = await InternModel.findOne({ email: req.body.email })
         if (checkunique) return res.status(400).send({ status: false, msg: "This email Already Exists Pls Use Another" })
 
-        let checkunique2 = await collegeModel.findOne({ _id: req.body.collegeId })
+        let checkunique2 = await collegeModel.findOne({ _id: collegeId })
         if (!checkunique2) return res.status(400).send({ status: false, msg: "This collegeId Does Not Exists Pls Use Another" })
+
+        if (!mongoose.isValidObjectId(collegeId)) return res.status(400).send({ status: false, msg: "The Format of colleId is invalid" })
 
 
         let savedData = await InternModel.create(data);
