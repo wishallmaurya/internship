@@ -12,10 +12,10 @@ const internController= require("../controller/interncontroller")
 router.post("/functionup/colleges", collegeController.createCollege)
 
 //....................Create  /functionup/interns
-// router.post("/functionup/interns", internController.createIntern)
+ router.post("/functionup/interns", internController.createIntern)
 
 //...................Get List Of functionup/colleges
-//  router.get("/functionup/collegeDetails", internController.getAllInterns)
+  router.get("/functionup/collegeDetails", internController.getCollegeInternDetails)
 
 // 
 
