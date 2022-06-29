@@ -28,8 +28,8 @@ const createIntern = async function (req,res){
 
         if (!isValid(data.collegeId))
             return res.status(400).send({ status: false, msg: "The collegeId Attributes should not be empty" })
-        // if (!isValidCollegeId(data.collegeId))
-        //     return res.status(400).send({ status: false, msg: "Pls Enter Valid collegeId" })
+        if (!isValidCollegeId(data.collegeId))
+            return res.status(400).send({ status: false, msg: "Pls Enter Valid collegeId" })
 
 
 
