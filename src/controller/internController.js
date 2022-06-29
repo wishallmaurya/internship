@@ -32,8 +32,7 @@ const createIntern = async function (req,res){
 
         if (!isValid(data.collegeId))
             return res.status(400).send({ status: false, msg: "The collegeId Attributes should not be empty" })
-        if (!isValidCollegeId(data.collegeId))
-            return res.status(400).send({ status: false, msg: "Pls Enter Valid collegeId" })
+        
 
 
 
@@ -45,7 +44,8 @@ const createIntern = async function (req,res){
 
         let checkunique = await InternModel.findOne({ email: req.body.email })
         if (checkunique) return res.status(400).send({ status: false, msg: "This email Already Exists Pls Use Another" })
-
+      
+        
         let checkunique2 = await collegeModel.findOne({ _id: collegeId })
         if (!checkunique2) return res.status(400).send({ status: false, msg: "This collegeId Does Not Exists Pls Use Another" })
 

@@ -28,12 +28,16 @@ const isValidCollegeId = (collegeId) => {
     if (/^[a-zA-Z]+(([',. -][a-zA-Z0-9 ])?[a-zA-Z0-9]*)*$/.test(collegeId))
         return true
 }
+const isValidlogoLink = (logoLink) => {
+    if (/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%.\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%\+.~#?&//=]*)/.test(logoLink))
+        return true
+}
 
 
 
 
 
-module.exports={isValidEmail,isValidName,isValidFullName,isValid,isValidPassword,isValidCollegeId,isValidMobile}
+module.exports={isValidEmail,isValidName,isValidFullName,isValid,isValidPassword,isValidCollegeId,isValidMobile,isValidlogoLink}
 
 
 // Hello

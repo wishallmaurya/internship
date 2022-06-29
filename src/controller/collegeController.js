@@ -1,5 +1,5 @@
 const collegeModel = require("../model/collegeModel");
-const {isValidName,isValidFullName,isValid} = require("../validation/validator");
+const {isValidName,isValidFullName,isValid,isValidlogoLink} = require("../validation/validator");
 
 const createCollege = async function (req,res){
 
@@ -21,6 +21,9 @@ try {
     return res.status(400).send({ status: false, msg: "The name Attributes should not be empty" })
     if (!isValidFullName(data.fullName))
     return res.status(400).send({ status: false, msg: "Pls Enter Valid Full Name of College" })
+    
+    if (!isValidlogoLink(data.logoLink))
+    return res.status(400).send({ status: false, msg: "Pls Enter Valid logoLink of College" })
 
     let checkunique= await collegeModel.findOne({name:req.body.name}) 
     if (checkunique) return res.status(400).send({status:false,msg:"This name Already Exists Pls Use Another"})
