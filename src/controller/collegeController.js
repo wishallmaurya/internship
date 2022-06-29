@@ -10,7 +10,7 @@ try {
         return res.status(400).send({status: false, msg: "Body should not be empty" })
     }
     if (!("name" in data) || !("fullName" in data) || !("logoLink" in data)) 
-    return res.status(400).send({status:false, msg: "name, fullname,logoLink are required" })
+    return res.status(400).send({status:false, msg: "name, fullname,logoLink all three are required" })
     
     if (!isValid(data.name))
     return res.status(400).send({ status: false, msg: "The name Attributes should not be empty" })

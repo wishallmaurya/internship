@@ -10,7 +10,7 @@ const createIntern = async function (req,res){
 
     try {
         let data = req.body
-      let collegeId= data.collegeId
+        let collegeId= data.collegeId
         if (Object.keys(data).length == 0) {
             return res.status(400).send({ status: false, msg: "Body should not be empty" })
         }
@@ -32,9 +32,14 @@ const createIntern = async function (req,res){
 
         if (!isValid(data.collegeId))
             return res.status(400).send({ status: false, msg: "The collegeId Attributes should not be empty" })
-        if (!isValidCollegeId(data.collegeId))
-            return res.status(400).send({ status: false, msg: "Pls Enter Valid collegeId" })
+        // if (!isValidCollegeId(data.collegeId))
+        //     return res.status(400).send({ status: false, msg: "Pls Enter Valid collegeId" })
+        if (!mongoose.isValidObjectId(collegeId))
+        return res.status(400).send({ status: false, msg: "The Format of college Id is invalid, Use Correct CollegeId" })
 
+        
+        let checkuniquecollegeId = await collegeModel.findOne({ _id: collegeId })
+        if (!checkuniquecollegeId) return res.status(400).send({ status: false, msg: "This collegeId Does Not Exists Pls Use Another" })
 
 
         if (!isValid(data.mobile))
@@ -42,14 +47,18 @@ const createIntern = async function (req,res){
         if (!isValidMobile(data.mobile))
             return res.status(400).send({ status: false, msg: "Pls Enter Valid mobile" })
 
-
         let checkunique = await InternModel.findOne({ email: req.body.email })
         if (checkunique) return res.status(400).send({ status: false, msg: "This email Already Exists Pls Use Another" })
 
-        let checkunique2 = await collegeModel.findOne({ _id: collegeId })
-        if (!checkunique2) return res.status(400).send({ status: false, msg: "This collegeId Does Not Exists Pls Use Another" })
+        let checkuniquemobile = await InternModel.findOne({ mobile: req.body.mobile })
+        if (checkuniquemobile) return res.status(400).send({ status: false, msg: "This mobile Already Exists Pls Use Another" })
+        
 
-        if (!mongoose.isValidObjectId(collegeId)) return res.status(400).send({ status: false, msg: "The Format of colleId is invalid" })
+        // if (checkunique && checkuniquemobile) return res.status(400).send({ status: false, msg: "This email or mobile Already Exists Pls Use Another" })
+
+
+     
+      
 
 
         let savedData = await InternModel.create(data);
