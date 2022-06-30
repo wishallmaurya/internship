@@ -19,7 +19,7 @@ const createCollege = async function (req, res) {
             return res.status(400).send({ status: false, msg: "name, fullname,logoLink all three are required" })
 
         //Checking presence, format and uniqueness of name
-
+        data.name=data.name.split(" ").join("") // Removing space between the name
         if (!isValid(data.name))
             return res.status(400).send({ status: false, msg: "The name Attributes should not be empty" })
 
@@ -31,12 +31,11 @@ const createCollege = async function (req, res) {
             return res.status(400).send({ status: false, msg: "The name Attributes should not be empty" })
         if (!isValidFullName(data.fullName))
             return res.status(400).send({ status: false, msg: "Pls Enter Valid Full Name of College" })
-
-
+        
         //Checking presence and format of link
         if (!isValid(data.logoLink))
             return res.status(400).send({ status: false, msg: "The name Attributes should not be empty" })
-        if (!isValidlogoLink(data.logoLink))
+        if (isValidlogoLink(data.logoLink))
             return res.status(400).send({ status: false, msg: "Pls Enter Valid Link for Logo of College" })
 
         // Creating database of CollegeModel    

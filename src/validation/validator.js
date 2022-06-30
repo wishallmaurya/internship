@@ -9,7 +9,7 @@ const isValidFullName=(fname)=>{
     return true
 }
 const isValidlogoLink = (logoLink) => {
-    if (/^(https:\/\/www\.|http:\/\/www\.|www\.)[a-zA-Z0-9\-_.$]+\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?(.png|.jpeg|.jpg)$/.test(logoLink))
+    if (/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g.test(logoLink))
         return true
 }
 const isValidEmail = (mail) => {
