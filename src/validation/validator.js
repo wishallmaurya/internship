@@ -4,15 +4,15 @@ const isValid = (value) => {
     return true
 }
 const isValidName = (name) => {
-    if (/^[a-z ,.'-]+$/i.test(name))
+    if (/[^a-z]/g.test(name))
         return true
 }
 const isValidFullName=(fname)=>{
     if(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/i.test(fname))
     return true
 }
-const isValidEmail = (mail) => {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+const isValidEmail = (email) => {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
         return true
 }
 const isValidMobile = (mobile) => {
