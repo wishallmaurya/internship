@@ -3,6 +3,10 @@ const isValid = (value) => {
     if (typeof value === "string" && value.trim().length === 0) return false
     return true
 }
+const isValidName=(name)=>{
+    if(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/i.test(name))
+    return true
+}
 
 const isValidFullName=(fname)=>{
     if(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/i.test(fname))
@@ -31,7 +35,7 @@ const isValidCollegeId = (collegeId) => {
         return true
 }
 
-module.exports={isValidEmail,isValidFullName,isValidlogoLink,isValid,isValidPassword,isValidCollegeId,isValidMobile}
+module.exports={isValidEmail,isValidName,isValidFullName,isValidlogoLink,isValid,isValidPassword,isValidCollegeId,isValidMobile}
 
 
 // Done

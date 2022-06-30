@@ -1,5 +1,5 @@
 const collegeModel = require("../model/collegeModel"); //Importing internmodel
-const { isValidFullName, isValid, isValidlogoLink } = require("../validation/validator");//Importing Validations
+const { isValidName, isValidFullName, isValid, isValidlogoLink } = require("../validation/validator");//Importing Validations
 
 // Creation of College via POST /functionup/colleges
 
@@ -22,6 +22,8 @@ const createCollege = async function (req, res) {
         data.name = data.name.split(" ").join("") // Removing space between the name
         if (!isValid(data.name))
             return res.status(400).send({ status: false, msg: "The name Attributes should not be empty" })
+        if (!isValidName(data.fullName))
+            return res.status(400).send({ status: false, msg: "Pls Enter Valid Name of College" })
 
         let checkunique = await collegeModel.findOne({ name: req.body.name })
         if (checkunique) return res.status(400).send({ status: false, msg: "This name Already Exists Pls Use Another" })
