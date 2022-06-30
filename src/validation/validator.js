@@ -12,6 +12,7 @@ const isValidlogoLink = (logoLink) => {
     if (/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g.test(logoLink))
         return true
 }
+
 const isValidEmail = (mail) => {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
         return true
