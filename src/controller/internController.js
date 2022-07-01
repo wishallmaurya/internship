@@ -11,16 +11,16 @@ const { isValidEmail, isValidName, isValid, isValidMobile } = require("../valida
 
 const createIntern = async function (req, res) {
     try {
-        let data = req.body
-        let collegeId = data.collegeId
-
-        //Checking Validation of empty Body
+        const{name,email,mobile,collegeName}= req.body;
+        const data={name,email,mobile,collegeName};
+console.log(data)
+       // Checking Validation of empty Body
         if (Object.keys(data).length == 0) {
             return res.status(400).send({ status: false, msg: "Body should not be empty" })
         }
-        //Checking stauts of required fields-- (name,email and mobile) if all will present then code will proceed
+        // Checking stauts of required fields-- (name,email and mobile) if all will present then code will proceed
 
-        if (!("name" in data) || !("email" in data) || !("mobile" in data) || !("collegeId" in data))
+        if (!(data.name) || !(data.email) || !(data.email) || !(data.collegeName))
             return res.status(400).send({ status: false, msg: "name, email,mobile, collegeId must be required" })
 
         //Checking presence and format of name 
@@ -37,26 +37,11 @@ const createIntern = async function (req, res) {
         if (!isValidEmail(data.email))
             return res.status(400).send({ status: false, msg: "Pls Enter Valid email" })
 
-        let checkuniqueemail = await InternModel.findOne({ email: req.body.email })
+        let checkuniqueemail = await InternModel.findOne({ email:data.email })
         if (checkuniqueemail) return res.status(400).send({ status: false, msg: "This email Already Exists Pls Use Another" })
 
 
-        //Checking presence, validation and uniqueness of collegeId
-
-        if (!isValid(data.collegeId))
-            return res.status(400).send({ status: false, msg: "The collegeId Attributes should not be empty" })
-
-
-        // if (!isValidCollegeId(data.collegeId))
-        //     return res.status(400).send({ status: false, msg: "Pls Enter Valid collegeId" })
-
-        if (!mongoose.isValidObjectId(collegeId))
-            return res.status(400).send({ status: false, msg: "The Format of college Id is invalid, Use Correct CollegeId" })
-
-        let checkuniquecollegeId = await collegeModel.findOne({ _id: collegeId })
-        if (!checkuniquecollegeId)
-            return res.status(400).send({ status: false, msg: "This collegeId Does Not Exists Pls Use Another" })
-
+     
         //Checking presence, uniqueness and format of Mobile number
 
         if (!isValid(data.mobile))
@@ -65,16 +50,14 @@ const createIntern = async function (req, res) {
             return res.status(400).send({ status: false, msg: "Pls Enter Valid mobile" })
 
 
-        let checkunique = await InternModel.findOne({ email: req.body.email })
+        let checkunique = await InternModel.findOne({ email:data.email })
         if (checkunique) return res.status(400).send({ status: false, msg: "This email Already Exists Pls Use Another" })
 
       
-        
-        let checkunique2 = await collegeModel.findOne({ _id: collegeId })
-        if (!checkunique2) return res.status(400).send({ status: false, msg: "This collegeId Does Not Exists Pls Use Another" })
+      
 
 
-        let checkuniquemobile = await InternModel.findOne({ mobile: req.body.mobile })
+        let checkuniquemobile = await InternModel.findOne({ mobile: data.mobile })
         if (checkuniquemobile) return res.status(400).send({ status: false, msg: "This mobile Already Exists Pls Use Another" })
         
 
@@ -82,13 +65,19 @@ const createIntern = async function (req, res) {
         if (checkunique && checkuniquemobile) return res.status(400).send({ status: false, msg: "This email or mobile Already Exists Pls Use Another" })
 
 
-     
+        if(!isValid(data.collegeName))return res.status(400).send({status:false,msg:"collegeName should not be empty"})
       
 
 
         // Creating database of InternModel
+const checkCollege=await collegeModel.findOne({name:data.collegeName});
+console.log(checkCollege)
+if(!checkCollege) 
+return res.status(404).send({ status: false, data: "this college does not exist" });
+collegeId=checkCollege._id
 
-        let savedData = await InternModel.create(data);
+const details={name,email,mobile,collegeId}
+        let savedData = await InternModel.create(details);
         res.status(201).send({ status: true, data: savedData });
 
     }
@@ -103,7 +92,7 @@ const createIntern = async function (req, res) {
 
 const getCollegeInternDetails = async function (req, res) {
     try {
-        let data = req.query.name
+        let data = req.query.collegeName
         //Checking Validation of empty query
         if (!data)
             return res.status(400).send({ status: false, message: "Please provide data in query" })
@@ -124,7 +113,7 @@ const getCollegeInternDetails = async function (req, res) {
         if (interns.length == 0) {
             return res.status(400).send({ status: false, message: "No interns are found in the given college" })
         }
-        res.status(200).send({ status: false, "data": { "name": college.name, "fullName": college.fullName, "logoLink": college.logoLink, "interns": interns } })
+        res.status(200).send({ status: true, "data": { "name": college.name, "fullName": college.fullName, "logoLink": college.logoLink, "interns": interns } })
 
     } catch (err) {
 
