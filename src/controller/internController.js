@@ -91,6 +91,7 @@ const details={name,email,mobile,collegeId}
 //  Intern details of College via Get /functionup/collegeDetails
 
 const getCollegeInternDetails = async function (req, res) {
+    res.setHeader('Access-Control-Allow-Origin',"*")
     try {
         let data = req.query.collegeName
         //Checking Validation of empty query

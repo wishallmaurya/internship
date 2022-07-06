@@ -16,7 +16,7 @@ const isValidFullName=(fname)=>{
 }
 const isValidlogoLink = (logoLink) => {
 
-    if (/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g.test(logoLink))
+    if (/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)/g.test(logoLink))
         return true
 }
 const isValidEmail = (email) => {
